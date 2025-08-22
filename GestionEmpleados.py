@@ -2,16 +2,14 @@ from pymongo import MongoClient    # pip install pymongo
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
-from tkinter import ttk # Para crear una tabla.
+from tkinter import ttk 
 
 # --- Seccion Funciones usadas regularmente ---
 
 # Función para cargar los datos de la base de datos en la tabla : 
-def mostrar_registros(*args):  # Al usar el metodo trace_add() debemos  usar *args . Ya que trace_add pasará tres argumentos (name, index y mode)
-    # Ejecutar una consulta para obtener todos los registros de una tabla
-    
-    filtro = variable_filtro.get().strip() # Obtiene lo que esta escrito en el entry_filtro y con el strip() : borra los espacios en blanco.
-    opcion = opciones_combobox.get()  # Obtiene la opcion seleccionada en el comboBox.
+def mostrar_registros(*args):  # Al usar el metodo trace_add() debemos  usar *args . Ya que trace_add pasará tres argumentos (name, index y mode)    
+    filtro = variable_filtro.get().strip()
+    opcion = opciones_combobox.get()  
     
     consulta = {}
     
@@ -66,14 +64,14 @@ def obtener_ultimo_id(sequence_name):
     
     entry_id.configure(state="normal") 
     entry_id.delete(0,tk.END) #Limpio
-    entry_id.insert(0, ultimo_id)  # Pone el valor actualizado del contador en el entry.
+    entry_id.insert(0, ultimo_id)  
     entry_id.configure(state="disabled")  
     
     return ultimo_id
 
 def limpiar_campos():
     entry_id.configure(state="normal")
-    entry_nombre.configure(state="normal")   # En custom tkinter se usa configure y no config
+    entry_nombre.configure(state="normal")   
     entry_apellido.configure(state="normal")
     entry_edad.configure(state="normal")
     entry_id.delete(0,tk.END) 
@@ -94,8 +92,8 @@ def agregar_empleado():
         messagebox.showwarning("Advertencia","Por favor, complete todos los campos.")  
         return
     try:
-        empleado_edad = int(empleado_edad)  # Si se pueden convertir a int
-    except ValueError:  # Si no se pueden convertir a int
+        empleado_edad = int(empleado_edad)  
+    except ValueError: 
         messagebox.showwarning("Advertencia","El campo Edad deben ser numeros.")
         return
     
@@ -114,7 +112,7 @@ def agregar_empleado():
     entry_apellido.delete(0,tk.END)
     entry_edad.delete(0,tk.END)
     entry_nombre.focus_set()
-    mostrar_registros() # Limpia y muestra los registros en la tabla.
+    mostrar_registros() 
     messagebox.showinfo("¡Éxito!","El empleado se agrego correctamente.")    
 
 
@@ -122,9 +120,9 @@ def agregar_empleado():
 def btnAlta():
     label_opcion.configure(text="Alta de Empleado")
     limpiar_campos()
-    obtener_ultimo_id("empleados_id")  # Activa el entry_ID ,Obtiene el ultimo id + 1 y lo ponemos en el entry , y Luego vuelve a desactivar el entry. 
-    entry_nombre.configure(state="normal")   # En custom tkinter se usa configure y no config
-    entry_nombre.focus_set()  # Pongo que el cursor inicie en este entry.
+    obtener_ultimo_id("empleados_id")  
+    entry_nombre.configure(state="normal")   
+    entry_nombre.focus_set()  
     entry_apellido.configure(state="normal")
     entry_edad.configure(state="normal")
     btn_accion.configure(state="normal", command=agregar_empleado,text="Agregar")
@@ -144,8 +142,8 @@ def modificar_empleado(empleado_id):
         messagebox.showwarning("Advertencia","Por favor, complete todos los campos.")  
         return
     try:
-        empleado_edad = int(empleado_edad)  # Si se pueden convertir a int
-    except ValueError:  # Si no se pueden convertir a int
+        empleado_edad = int(empleado_edad)  
+    except ValueError: 
         messagebox.showwarning("Advertencia","El campo Edad deben ser numeros.")
         return
     try:
@@ -159,7 +157,7 @@ def modificar_empleado(empleado_id):
     
     btn_accion.configure(text="Buscar...")
     btn_modificacion.configure(text="Modificacion de Empleado")
-    mostrar_registros() # Limpia y muestra los registros en la tabla.
+    mostrar_registros() 
     limpiar_campos()
     entry_nombre.configure(state="disabled")
     entry_apellido.configure(state="disabled")
@@ -175,8 +173,8 @@ def dar_modificacion():
         messagebox.showwarning("Advertencia","Por favor, Ingrese el ID del empleado a Modificar.")  
         return
     try:
-        identificador = int(identificador)  # Si se pueden convertir a int
-    except ValueError:  # Si no se pueden convertir a int
+        identificador = int(identificador)  
+    except ValueError:  
         messagebox.showwarning("Advertencia","El campo ID deben ser numeros.")
         return    
     
@@ -207,8 +205,8 @@ def dar_modificacion():
 def btnModificacion():
     label_opcion.configure(text="Modificación de Empleado")
     limpiar_campos()
-    entry_id.focus_set()  # Pongo que el cursor inicie en este entry.
-    entry_nombre.configure(state="disabled")   # En custom tkinter se usa configure y no config
+    entry_id.focus_set() 
+    entry_nombre.configure(state="disabled")   
     entry_apellido.configure(state="disabled")
     entry_edad.configure(state="disabled")
     btn_baja.configure(text="Baja de Empleado")
@@ -230,7 +228,7 @@ def eliminar_empleado(empleado_id):
     
     btn_accion.configure(text="Buscar...")
     btn_baja.configure(text="Baja de Empleado")
-    mostrar_registros() # Limpia y muestra los registros en la tabla.
+    mostrar_registros() 
     limpiar_campos()
     messagebox.showinfo("¡Éxito!","El empleado se elimino correctamente.")
 
@@ -242,8 +240,8 @@ def dar_baja():
         messagebox.showwarning("Advertencia","Por favor, Ingrese el ID del empleado a eliminar.")  
         return
     try:
-        identificador = int(identificador)  # Si se pueden convertir a int
-    except ValueError:  # Si no se pueden convertir a int
+        identificador = int(identificador)  
+    except ValueError:  
         messagebox.showwarning("Advertencia","El campo ID deben ser numeros.")
         return    
     
@@ -275,8 +273,8 @@ def dar_baja():
 def btnBaja():
     label_opcion.configure(text="Baja de Empleado")
     limpiar_campos()
-    entry_id.focus_set()  # Pongo que el cursor inicie en este entry.
-    entry_nombre.configure(state="disabled")   # En custom tkinter se usa configure y no config
+    entry_id.focus_set()  
+    entry_nombre.configure(state="disabled")   
     entry_apellido.configure(state="disabled")
     entry_edad.configure(state="disabled")
     btn_modificacion.configure(text="Modificacion de Empleado")
@@ -309,8 +307,8 @@ estilo = {"font":("Arial",15,"bold"), "width":200}
 
 labelFrame = ctk.CTkFrame(root)
     
-btn_alta = ctk.CTkButton(labelFrame, command=btnAlta, text="Alta de Empleado", fg_color="green", hover_color="dark green",**estilo )  # fg_color : cambiar el color del boton, bg_color : cambiar el color de los bordes.
-btn_modificacion = ctk.CTkButton(labelFrame, command=btnModificacion, text="Modificacion de Empleado", fg_color="blue",hover_color="blue4", **estilo) # hover_color: el color al pasar el mouse por encima.
+btn_alta = ctk.CTkButton(labelFrame, command=btnAlta, text="Alta de Empleado", fg_color="green", hover_color="dark green",**estilo ) 
+btn_modificacion = ctk.CTkButton(labelFrame, command=btnModificacion, text="Modificacion de Empleado", fg_color="blue",hover_color="blue4", **estilo) 
 btn_baja = ctk.CTkButton(labelFrame, command=btnBaja, text="Baja de Empleado", fg_color="red", hover_color="red4",**estilo)
     
 labelFrame.grid(row=0, column=0, columnspan="2", rowspan="6")
@@ -353,19 +351,19 @@ entry_edad.grid(row=4,column=3, **padding_entry)
 btn_accion.grid(row=5,column=2, columnspan="2")
 
 label_filtrar = ctk.CTkLabel(root, text="Filtrar por:", font=("Arial",20,"bold"))
-label_filtrar.grid(row=0,column=4, sticky="w", padx=(20,0))  # sticky = "w" : posiciono el widget a la izquierda de la columna
+label_filtrar.grid(row=0,column=4, sticky="w", padx=(20,0))  
 
 opciones_combobox =  ctk.CTkComboBox(root, values=["Id", "Nombre", "Apellido", "Edad"], width=85)
 opciones_combobox.grid(row=0, column=4, padx=(0,75) )
-opciones_combobox.set("Id")  # Establece el valor predeterminado
+opciones_combobox.set("Id")  
 
 variable_filtro = ctk.StringVar()
 entry_filtro = ctk.CTkEntry(root, textvariable= variable_filtro, width=177)
-entry_filtro.grid(row=0, column=4, sticky="e", padx=(0,20)) # sticky = "e" : posiciono el widget a la derecha de la columna
+entry_filtro.grid(row=0, column=4, sticky="e", padx=(0,20)) 
 
 
-variable_filtro.trace_add("write", mostrar_registros)  # Cada vez que se escriba o borre en el entry se llamara a la funcion mostrar_registros() 
-opciones_combobox.bind("<FocusOut>", lambda e: mostrar_registros()) # El evento FocusOut llama la funcion , cuando se deja de hacer focus en el.
+variable_filtro.trace_add("write", mostrar_registros)  
+opciones_combobox.bind("<FocusOut>", lambda e: mostrar_registros()) 
 
 
 # Crear el Treeview (tabla) :
